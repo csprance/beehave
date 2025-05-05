@@ -9,7 +9,13 @@ class_name CooldownDecorator
 ## or when the node is interrupted (such as when the behavior tree changes branches).
 
 ## The wait time in seconds
-@export var wait_time := 0.0
+@export var wait_time := 0.0:
+	set(v):
+		if auto_rename:
+			wait_time = v
+			name = "Cooldown-%ss" % Utils.format_time(wait_time)
+## Should we rename the Cool Down based on the Wait Time?
+@export var auto_rename := true
 
 @onready var cache_key = "cooldown_%s" % self.get_instance_id()
 
